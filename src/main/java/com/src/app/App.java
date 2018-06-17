@@ -7,11 +7,26 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.SparseMultigraph;
+import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.visualization.BasicTransformer;
+import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Paint;
+import java.awt.Stroke;
 
 public class App {
 
@@ -41,6 +56,22 @@ public class App {
 	 */
 	public App() {
 		analyzer = new JarAnalyzer();
+
+		// Prueba de Jung
+		// Graph<V, E> where V is the type of the vertices
+		// and E is the type of the edges
+		Graph<Integer, String> sgv = new SparseMultigraph<Integer, String>();
+		// Add some vertices. From above we defined these to be type Integer.
+		sgv.addVertex((Integer) 1);
+		sgv.addVertex((Integer) 2);
+		sgv.addVertex((Integer) 3);
+		// Add some edges. From above we defined these to be of type String
+		// Note that the default is for undirected edges.
+		sgv.addEdge("Edge-A", 1, 2); // Note that Java 1.5 auto-boxes primitives
+		sgv.addEdge("Edge-B", 2, 3);
+		System.out.println(sgv);
+		// Fin de prueba de Jung
+		
 		initialize();
 	}
 
@@ -66,7 +97,7 @@ public class App {
 		lblNoJarsAdded.setBackground(Color.WHITE);
 		lblNoJarsAdded.setBounds(15, 394, 1518, 64);
 		panel.add(lblNoJarsAdded);
-		
+
 		final JButton btnZoomIn = new JButton("Zoom in");
 		btnZoomIn.setBounds(175, 15, 115, 30);
 		frame.getContentPane().add(btnZoomIn);
