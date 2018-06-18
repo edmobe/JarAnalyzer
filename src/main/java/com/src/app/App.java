@@ -8,18 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseMultigraph;
-import edu.uci.ics.jung.graph.util.EdgeType;
-import edu.uci.ics.jung.visualization.BasicTransformer;
-import edu.uci.ics.jung.visualization.BasicVisualizationServer;
-import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
-import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
+
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -32,6 +25,7 @@ public class App {
 
 	private JFrame frame;
 	private JarAnalyzer analyzer;
+	private GraphGenerator generator;
 
 	/**
 	 * Launch the application.
@@ -56,22 +50,6 @@ public class App {
 	 */
 	public App() {
 		analyzer = new JarAnalyzer();
-
-		// Prueba de Jung
-		// Graph<V, E> where V is the type of the vertices
-		// and E is the type of the edges
-		Graph<Integer, String> sgv = new SparseMultigraph<Integer, String>();
-		// Add some vertices. From above we defined these to be type Integer.
-		sgv.addVertex((Integer) 1);
-		sgv.addVertex((Integer) 2);
-		sgv.addVertex((Integer) 3);
-		// Add some edges. From above we defined these to be of type String
-		// Note that the default is for undirected edges.
-		sgv.addEdge("Edge-A", 1, 2); // Note that Java 1.5 auto-boxes primitives
-		sgv.addEdge("Edge-B", 2, 3);
-		System.out.println(sgv);
-		// Fin de prueba de Jung
-		
 		initialize();
 	}
 
@@ -107,6 +85,11 @@ public class App {
 		btnZoomIn.setForeground(Color.WHITE);
 		btnZoomIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					generator.generateClassGraph();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -119,6 +102,11 @@ public class App {
 		btnZoomOut.setForeground(Color.WHITE);
 		btnZoomOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					generator.generateDependenciesGraph();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -141,6 +129,8 @@ public class App {
 						lblNoJarsAdded.setText("Opened: " + filename);
 						btnZoomIn.setEnabled(true);
 						btnZoomOut.setEnabled(true);
+						generator = new GraphGenerator(filename,frame ,analyzer.getJarList(), analyzer.getJarManifest());
+						generator.generateClassGraph();
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}

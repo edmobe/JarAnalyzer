@@ -1,6 +1,7 @@
 package com.src.app;
 
 import java.io.File;
+import java.util.List;
 import java.util.SortedMap;
 import java.util.SortedSet;
 
@@ -11,6 +12,7 @@ public class JarAnalyzer {
 
 	private Archive selectedJar;
 	private SortedMap<String, SortedSet<String>> jarList;
+	private String jarManifest = null;
 
 	public JarAnalyzer() {
 
@@ -21,18 +23,31 @@ public class JarAnalyzer {
 		JarScanner jarScanner = new JarScanner();
 		Archive archive = jarScanner.scan(jarFile);
 		jarList = archive.getClassDependencies();
+		if(archive.hasManifestKey("Class-Path")) {
+			jarManifest = archive.getManifestValue("Class-Path");
+		}
+		//System.out.println(jarList.toString());
+		//System.out.println(jarList.keySet());
+//		System.out.println(jarManifest);
+//		System.out.println(archive.hasManifestKey("Class-Path"));
+//		for ( String key : jarList.keySet() ) {
+//		    System.out.println( key );
+//		    System.out.println( jarList.get(key));
+//		}
 		System.out.println("DONE!");
 	}
 
-	/*
-	 * public Jar getSelectedJar() { return selectedJar; }
-	 * 
-	 * public void setSelectedJar(Jar selectedJar) { this.selectedJar = selectedJar;
-	 * }
-	 * 
-	 * public LinkedList<Jar> getJarList() { return JarList; }
-	 * 
-	 * public void setJarList(LinkedList<Jar> jarList) { JarList = jarList; }
-	 */
+	public String getJarManifest() {return jarManifest;}
+
+	public void setJarManifest(String jarManifest) {this.jarManifest = jarManifest;}
+
+	public Archive getSelectedJar() { return selectedJar; }
+	  
+	public void setSelectedJar(Archive selectedJar) { this.selectedJar = selectedJar;}
+	 
+	public SortedMap<String, SortedSet<String>> getJarList() { return jarList; }
+	 
+	public void setJarList(SortedMap<String, SortedSet<String>> jarList) { this.jarList = jarList; }
+	 
 
 }
