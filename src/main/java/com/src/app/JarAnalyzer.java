@@ -28,7 +28,7 @@ public class JarAnalyzer {
 		//System.out.println(jarList.toString());
 		//System.out.println(jarList.keySet());
 //		System.out.println(jarManifest);
-//		System.out.println(archive.hasManifestKey("Class-Path"));
+		//System.out.println(archive.hasManifestKey("Class-Path"));
 //		for ( String key : jarList.keySet() ) {
 //		    System.out.println( key );
 //		    System.out.println( jarList.get(key));

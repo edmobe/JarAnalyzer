@@ -1,12 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.edmobe.apps</groupId>
 	<artifactId>pr0000_jaranalyzer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>JarAnalyzer</name>
-
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.jboss.tattletale/tattletale-maven -->
 		<dependency>
@@ -14,7 +31,6 @@
 			<artifactId>tattletale-maven</artifactId>
 			<version>1.2.0.Beta2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>net.sf.jung</groupId>
 			<artifactId>jung-api</artifactId>
@@ -45,8 +61,5 @@
 			<artifactId>jung-samples</artifactId>
 			<version>2.1.1</version>
 		</dependency>
-
-		
-
 	</dependencies>
 </project>

@@ -59,7 +59,7 @@ public class App {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(15, 61, 1548, 867);
 		frame.getContentPane().add(panel);
@@ -125,7 +125,7 @@ public class App {
 						lblNoJarsAdded.setVisible(false);
 						btnZoomIn.setEnabled(true);
 						btnZoomOut.setEnabled(true);
-						generator = new GraphGenerator(filename,frame ,analyzer.getJarList(), analyzer.getJarManifest());
+						generator = new GraphGenerator(filename,panel ,analyzer.getJarList(), analyzer.getJarManifest());
 						generator.generateDependenciesGraph();
 					} catch (Exception e1) {
 						e1.printStackTrace();
