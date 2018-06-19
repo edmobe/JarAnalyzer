@@ -60,11 +60,13 @@ public class GraphGenerator {
 	
 	public void generateDependenciesGraph() throws IOException {
 		Graph<String,String> g = new DirectedSparseMultigraph<String, String>();
-		if (dependencies == null) {
-			g.addVertex(center);
-		}
-		else {
-			System.out.println(dependencies);
+		g.addVertex(center);
+		if (dependencies != null) {
+			String[] split = dependencies.split("\\s+");
+			for (int i = 0; i< split.length;i++) {
+				g.addVertex(split[i]);
+				g.addEdge(center+split[i], center,split[i], EdgeType.DIRECTED);
+			}
 		}
 		
 		Collection<String> h =g.getVertices();
