@@ -14,12 +14,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Paint;
-import java.awt.Stroke;
 
 public class App {
 
@@ -126,11 +122,11 @@ public class App {
 				else {
 					try {
 						analyzer.openJar(fd.getDirectory() + filename);
-						lblNoJarsAdded.setText("Opened: " + filename);
+						lblNoJarsAdded.setVisible(false);
 						btnZoomIn.setEnabled(true);
 						btnZoomOut.setEnabled(true);
 						generator = new GraphGenerator(filename,frame ,analyzer.getJarList(), analyzer.getJarManifest());
-						generator.generateClassGraph();
+						generator.generateDependenciesGraph();
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}

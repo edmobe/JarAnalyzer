@@ -24,5 +24,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Maria/Cosas Desktop/Datos 1/Proyecto 3/proyecto 3 grafos semi terminados/JarAnalyzer/jars/jung-algorithms-2.1.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
